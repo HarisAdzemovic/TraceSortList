@@ -50,7 +50,7 @@ if(os.environ['TRAVIS_BRANCH'] == 'master' and os.environ['TRAVIS_PULL_REQUEST']
 
     # Make a commit to the branch and push it
     sp.call(['git', 'commit', '-a', '-m', 'Repairs Sonarqube violations']);
-    sp.call(['git', 'remote', 'add', 'origin', 'git@github.com:HarisAdzemovic/TraceSortList.git']);
+    sp.call(['git', 'remote', 'set-url', 'origin', 'git@github.com:HarisAdzemovic/TraceSortList.git']);
     sp.call(['git', 'push', 'origin', branch]);
 else:
     print("Wrong branch or PR");
