@@ -5,10 +5,9 @@ import shutil;
 import filecmp;
 
 if(os.environ['TRAVIS_BRANCH'] == 'master' and os.environ['TRAVIS_PULL_REQUEST'] == 'false'):
-    project ='TraceSortList';
     SQR = 'sonarqube-repair';
     branch = 'SonarqubeRepair';
-    sourceFolder = SQR + '/source/act/' + project;
+    sourceFolder = SQR + '/source/act/original';
     rules = ['2111', '2116', '2272', '4973'];
     # Clone SQ-Repair and package it
     sp.call(['git', 'clone', 'git@github.com:kth-tcs/' + SQR + '.git']);
@@ -34,7 +33,7 @@ if(os.environ['TRAVIS_BRANCH'] == 'master' and os.environ['TRAVIS_PULL_REQUEST']
         sp.call(['java', '-cp', 'target/sonarqube-repair-0.1-SNAPSHOT-jar-with-dependencies.jar', 'Main', rule], cwd = SQR)
 
         # Go over all Spooned files and compare them to originals. If a diff is found, replace it.
-        path = SQR + '/spooned/se'
+        path = SQR + '/spooned'
         spoonedFiles = [];
         for r, d, f in os.walk(path):
             for file in f:
