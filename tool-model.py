@@ -47,9 +47,14 @@ if(os.environ['TRAVIS_BRANCH'] == 'master' and os.environ['TRAVIS_PULL_REQUEST']
                         shutil.copy(s, o);
                     break;
 
+    # Save the project URL
+    url = os.environ['TRAVIS_JOB_WEB_URL'];
+    owner = url.split('/')[-4];
+    project = url.split('/')[-3];
     # Make a commit to the branch and push it
     sp.call(['git', 'commit', '-a', '-m', 'Repairs Sonarqube violations']);
-    sp.call(['git', 'remote', 'set-url', 'origin', 'git@github.com:HarisAdzemovic/TraceSortList.git']);
+    # HTTPS will be used by default. This forces SSH usage.
+    sp.call(['git', 'remote', 'set-url', 'origin', 'git@github.com:' + owner + '/' + project + '.git']);
     sp.call(['git', 'push', 'origin', branch]);
 else:
     print("Wrong branch or PR");
